@@ -1,0 +1,77 @@
+server:
+  port: 20820
+  connection-timeout: 30000
+  servlet:
+    context-path: /api
+  tomcat:
+    max-threads: 5000
+    min-spare-threads: 1000  
+
+#jasypt config
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+    algorithm: PBEWithMD5AndDES
+    property:
+      prefix: ENC(
+      suffix: )
+    
+spring:
+  main:
+    banner-mode: 'off'
+  application:
+    name: budget-management-api
+  profiles:
+    active: local
+  datasource:
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+---
+spring.profiles: local
+spring.profiles.include: console-logging
+
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ENC(nXfGMgEtBGUwx/eqs9+4iRXBgdwE+LF7a6NUK7QeFW+iIxcjTjYgxA5rdvAnbcFLtUzepARmov8=)
+    username: ENC(K623HZcytU4ZLpIy8kZtKkycA08D2MfU)
+    password: ENC(SQkM2KiwWqLnjIyzO8nzjjAd+Pnvn9Q4)
+  jpa:
+    properties:
+      hibernate:
+        temp.use_jdbc_metadata_defaults: false
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+---
+spring.profiles: test
+spring.profiles.include: file-logging
+
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ENC(nXfGMgEtBGUwx/eqs9+4iRXBgdwE+LF7a6NUK7QeFW+iIxcjTjYgxA5rdvAnbcFLtUzepARmov8=)
+    username: ENC(K623HZcytU4ZLpIy8kZtKkycA08D2MfU)
+    password: ENC(SQkM2KiwWqLnjIyzO8nzjjAd+Pnvn9Q4)
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

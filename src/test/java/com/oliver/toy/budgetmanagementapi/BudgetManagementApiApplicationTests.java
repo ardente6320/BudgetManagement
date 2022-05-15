@@ -9,5 +9,4 @@ class BudgetManagementApiApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
