@@ -1,4 +1,4 @@
-package com.oliver.toy.budgetmanagementapi.Exceptions;
+package com.oliver.toy.budgetmanagementapi.exceptions;
 
 public class AccountException extends RuntimeException{
     
