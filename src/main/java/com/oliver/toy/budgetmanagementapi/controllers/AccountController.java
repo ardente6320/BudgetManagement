@@ -1,7 +1,6 @@
 package com.oliver.toy.budgetmanagementapi.controllers;
 
 import java.util.Map;
-import java.util.Optional;
 
 import javax.security.auth.login.AccountException;
 import javax.servlet.http.HttpServletRequest;
