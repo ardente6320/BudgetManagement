@@ -5,6 +5,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.oliver.toy.budgetmanagementapi.utils.LogUtil;
+import com.oliver.toy.budgetmanagementapi.utils.ResponseTemplate;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -15,8 +18,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.context.request.WebRequest;
+
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * API 로거
+ */
 @Aspect
 @Component
 @Slf4j
@@ -48,7 +57,32 @@ public class LogAspect {
             long end = System.currentTimeMillis();
             log.debug("Request: {} {} < {} ({}ms)", request.getMethod(), request.getRequestURI(), request.getRemoteHost(), end - start);
             log.info("parameters :: {}", params(joinPoint));
-            log.info("response :: {} {}", result.getStatusCode(),result.getBody().toString());
+            log.info("response :: {} {}", result.getStatusCode(),(ResponseTemplate)result.getBody());
+        }
+        return result;
+    }
+
+    @Pointcut("within(com.oliver.toy.budgetmanagementapi.handlers..*)")
+    public void onGlobalExceptionRequest() {}
+
+    @Around("onGlobalExceptionRequest()")
+    public Object logGlobalException(ProceedingJoinPoint joinPoint) throws Throwable{
+        ResponseEntity<?> result = null;
+          
+        Object[] args = joinPoint.getArgs();
+        Exception e = null;
+        HttpServletRequest request = null;
+
+        try {
+            for(Object arg : args){
+              if(arg instanceof Exception) e = (Exception) arg;
+              else if(arg instanceof WebRequest) request = ((ServletWebRequest) arg).getRequest();
+            }
+
+            result = (ResponseEntity<?>) joinPoint.proceed(args);
+        } finally {
+            log.error("Exception :: {} {} < {} {} {}", result.getStatusCode(),request.getRequestURI(), request.getRemoteHost()
+                                                            ,(ResponseTemplate)result.getBody(),LogUtil.getStackTrace(e));
         }
         return result;
     }

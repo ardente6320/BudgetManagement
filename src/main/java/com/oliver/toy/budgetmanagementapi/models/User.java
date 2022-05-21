@@ -16,6 +16,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 사용자 정보
+ */
 @Getter
 @Setter
 @ToString(exclude = {"password"})

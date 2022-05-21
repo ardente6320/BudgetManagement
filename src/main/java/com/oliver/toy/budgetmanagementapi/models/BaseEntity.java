@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 엔티티 공통 모듈
+ * 공통 모듈
  */
 @Getter
 @Setter

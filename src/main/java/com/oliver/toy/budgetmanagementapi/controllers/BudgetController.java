@@ -18,12 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 예산 API
+ */
 @RestController
 @RequestMapping("/budget")
 @RequiredArgsConstructor
 public class BudgetController {
     private final BudgetService budgetService;
     
+    /**
+     * 사용자의 예산 내역 조회
+     * @param req
+     * @return
+     */
     @GetMapping(value = "/list", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<List<Budget>> getBudgetList(HttpServletRequest req){
         long userNo = 1;
@@ -32,6 +40,12 @@ public class BudgetController {
         return new ResponseEntity<List<Budget>>(budgetList.get(),HttpStatus.OK);
     }
 
+    /**
+     * 예산 내역 상세 조회
+     * @param req
+     * @param budgetId
+     * @return
+     */
     @GetMapping(value = "/{budgetId}", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<Budget> getBudget(HttpServletRequest req, @PathVariable("budgetId") Long budgetId){
         Optional<Budget> budget = budgetService.findByBudgetId(budgetId);

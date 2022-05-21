@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 예산 서비스
+ */
 @Service
 @RequiredArgsConstructor
 public class BudgetService {

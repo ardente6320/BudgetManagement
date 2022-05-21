@@ -12,6 +12,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 예산 정보
+ */
 @Getter
 @Setter
 @ToString
