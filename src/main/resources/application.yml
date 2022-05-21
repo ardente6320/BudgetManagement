@@ -26,16 +26,19 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
   jpa:
+    properties:
+      hibernate:
+        temp.use_jdbc_metadata_defaults: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     generate-ddl: true
-    show_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 logging:
   level:
     org.hibernate.SQL: debug
+    com.oliver.toy.budgetmanagementapi.aspects: debug 
 
 ---
 spring.profiles: local
@@ -52,9 +55,8 @@ spring:
       hibernate:
         temp.use_jdbc_metadata_defaults: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     generate-ddl: true
-    show_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
@@ -69,9 +71,11 @@ spring:
     username: ENC(K623HZcytU4ZLpIy8kZtKkycA08D2MfU)
     password: ENC(SQkM2KiwWqLnjIyzO8nzjjAd+Pnvn9Q4)
   jpa:
+    properties:
+      hibernate:
+        temp.use_jdbc_metadata_defaults: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     generate-ddl: true
-    show_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
